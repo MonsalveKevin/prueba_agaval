@@ -16,8 +16,8 @@
       <td>Acciones</td>
       </thead>
       <tbody>
-        <tr *ngFor="let item of clientes">
-          <td>{{ item.idCliente }}</td>
+        <tr *ngFor="let item of clientes" [ngClass]="{'table-success': item.tipoPersona === 'Juridica', 'table-warning': item.tipoPersona === 'Natural'}">
+          <td >{{ item.idCliente }}</td>
           <td>{{ item.nombre }}</td>
           <td>{{ item.direccion }}</td>
           <td>{{ item.telefono }}</td>

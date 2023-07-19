@@ -64,7 +64,7 @@ export class ClienteComponent implements OnInit {
       return;
     }
 
-    this.http.get<any>(`/api/cliente/${this.f['id'].value}`).subscribe(
+    this.http.get<any>(`/api/clientes/${this.f['id'].value}`).subscribe(
       (result) => {
         this.f['id'].disable();
         this.f['nombre'].setValue(result.nombre);
@@ -88,7 +88,7 @@ export class ClienteComponent implements OnInit {
     this.cargando = true;
 
     let cliente = {
-      idCliente: this.f['id'].value,
+      idCliente: null,
       nombre: this.f['nombre'].value,
       direccion: this.f['direccion'].value,
       idTipoPersona: this.f['idTipoPersona'].value,
@@ -104,20 +104,25 @@ export class ClienteComponent implements OnInit {
         },
         (error) => {
           this.toastr.error(error, 'Error');
+          this.subido = false;
+          this.cargando = false;
         }
       );
     } else {
-      this.http.put<any>('/api/clientes', cliente).subscribe(
-        () => {
-          this.toastr.success('Modificado correctamente', 'Éxito');
-          setTimeout(() => {
-            this.router.navigateByUrl('clientes');
-          }, 2000);
-        },
-        (error) => {
-          this.toastr.error(error, 'Error');
-        }
-      );
+      cliente.idCliente = this.f['id'].value,
+        this.http.put<any>('/api/clientes', cliente).subscribe(
+          () => {
+            this.toastr.success('Modificado correctamente', 'Éxito');
+            setTimeout(() => {
+              this.router.navigateByUrl('clientes');
+            }, 2000);
+          },
+          (error) => {
+            this.toastr.error(error, 'Error');
+            this.subido = false;
+            this.cargando = false;
+          }
+        );
     }
   }
 }

@@ -16,10 +16,14 @@ export class ClientesComponent {
   constructor(private http: HttpClient,
     private toastr: ToastrService,
     private router: Router) {
-    http.get<Cliente[]>('api/clientes').subscribe(result => {
-      this.clientes = result;
-    }, error => console.error(error));
+    this.obtenerClientes();
   }
+
+    private obtenerClientes() {
+        this.http.get<Cliente[]>('api/clientes').subscribe(result => {
+            this.clientes = result;
+        }, error => console.error(error));
+    }
 
   editar(idCliente: string) {
     if (!idCliente) return;
@@ -30,6 +34,7 @@ export class ClientesComponent {
   eliminar(idCliente: string) {
     this.http.delete(`api/clientes/${idCliente}`).subscribe(result => {
       this.toastr.success("Eliminado correctamente", "Exito");
+      this.obtenerClientes();
     }, error => console.error(error));
   }
 }
