@@ -1,0 +1,34 @@
+<h1>{{ title }}</h1>
+<div class="row">
+  <div class="col-md-12">
+    <a type="button" class="btn btn-primary btn--raised" href="/cliente">Agregar cliente</a>
+    <div *ngIf="!clientes" class="alert alert-primary" role="alert">
+      No hay datos para mostrar.
+    </div>
+    <table class="table" *ngIf="clientes">
+      <thead>
+      <td>Id</td>
+      <td>Nombre</td>
+      <td>Dirección</td>
+      <td>Teléfono</td>
+      <td>Identificación</td>
+      <td>Tipo persona</td>
+      <td>Acciones</td>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of clientes">
+          <td>{{ item.idCliente }}</td>
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.direccion }}</td>
+          <td>{{ item.telefono }}</td>
+          <td>{{ item.identificacion }}</td>
+          <td>{{ item.tipoPersona }}</td>
+          <td>
+            <button type="button" class="btn btn-primary btn--icon" (click)="editar(item.idCliente)"><i class="fa fa-pencil"></i></button> |
+            <button class="btn btn-danger btn--icon" (click)="eliminar(item.idCliente)"><i class="fa fa-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

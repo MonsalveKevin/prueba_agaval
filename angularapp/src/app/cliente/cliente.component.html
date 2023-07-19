@@ -1,0 +1,67 @@
+<h1>{{title}}</h1>
+
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="detalleForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text"
+               formControlName="nombre"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': subido && f['nombre'].errors }" />
+        <i class="form-group__bar"></i>
+        <div *ngIf="subido && f['nombre'].errors" class="invalid-tooltip">
+          <div *ngIf="f['nombre'].errors['required']">
+            Nombre requerido
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Dirección</label>
+        <input type="text"
+               formControlName="direccion"
+               class="form-control"
+               [ngClass]="{ 'is-invalid': subido && f['direccion'].errors }" />
+        <i class="form-group__bar"></i>
+        <div *ngIf="subido && f['direccion'].errors" class="invalid-tooltip">
+          <div *ngIf="f['direccion'].errors['required']">
+            Dirección requerida
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Tipo Persona</label>
+        <ng-select formControlName="idTipoPersona"
+                   [items]="tiposPersona"
+                   bindLabel="nombre"
+                   bindValue="idTipoPersona"
+                   placeholder="Seleccione..."
+                   class="form-control"
+                   [ngClass]="{ 'is-invalid': subido && f['idTipoPersona'].errors }">
+        </ng-select>
+
+        <i class="form-group__bar"></i>
+        <div *ngIf="subido && f['idTipoPersona'].errors"
+             class="invalid-tooltip">
+          <div *ngIf="f['idTipoPersona'].errors['required']">
+            Tipo Persona requerido
+          </div>
+        </div>
+      </div>
+
+      <div class="botones-form">
+        <button type="button"
+                class="btn btn-secondary btn--raised"
+                [routerLink]="['/clientes']">
+          Volver
+        </button>
+        <button [disabled]="cargando" class="btn btn-primary btn--raised">
+          Guardar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
