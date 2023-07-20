@@ -37,6 +37,35 @@ namespace Datos
             }
         }
 
+        public Empleado ObtenerPorId(Guid idEmpleado)
+        {
+            using (SqlConnection connection = new SqlConnection(Conexion.ConnectionString))
+            {
+                string query = "SELECT IdEmpleado, Identificacion, Nombre, Apellidos, Telefono, Direccion FROM Empleado WHERE IdEmpleado = @IdEmpleado";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdEmpleado", idEmpleado);
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        var identificacion = reader.GetString(1);
+                        var nombre = reader.GetString(2);
+                        var apellidos = reader.GetString(3);
+                        var telefono = reader.GetString(4);
+                        var direccion = reader.GetString(5);
+
+                        return new Empleado { IdEmpleado = idEmpleado, Identificacion = identificacion, Nombre = nombre, Apellidos = apellidos, Telefono = telefono, Direccion = direccion};
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+
         public void AgregarEmpleado(Empleado empleado)
         {
             empleado.IdEmpleado = Guid.NewGuid();

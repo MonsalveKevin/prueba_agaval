@@ -9,17 +9,23 @@ namespace webapi.Controllers
     [ApiController]
     public class TiposPersonaController : ControllerBase
     {
-        private readonly IServicioTipoPersona _servicio;
+        private readonly IServicioTipoPersona _tipoPersona;
 
         public TiposPersonaController()
         {
-            _servicio = new ServicioTipoPersona();
+            _tipoPersona = new ServicioTipoPersona();
         }
 
         [HttpGet]
         public List<TipoPersona> Obtener()
         {
-            return _servicio.Obtener();
+            return _tipoPersona.Obtener();
+        }
+
+        [HttpGet("{idTipoPersona}")]
+        public TipoPersona ObetenerPorId(Guid idTipoPersona)
+        {
+            return _tipoPersona.ObtenerPorId(idTipoPersona);
         }
     }
 }

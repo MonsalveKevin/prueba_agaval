@@ -26,6 +26,20 @@ namespace Negocio
                 throw;
             }
         }
+
+        public Empleado ObtenerPorId(Guid idEmpleado)
+        {
+            try
+            {
+                return _empleado.ObtenerPorId(idEmpleado);
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex);
+                throw;
+            }
+        }
+
         public void AgregarEmpleado(Empleado empleado)
         {
             try

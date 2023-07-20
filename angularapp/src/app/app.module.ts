@@ -10,12 +10,27 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EmpleadosComponent } from './empleados/empleados.component';
+import { EmpleadoComponent } from './empleado/empleado.component';
+import { ProveedoresComponent } from './proveedores/proveedores.component';
+import { ProveedorComponent } from './proveedor/proveedor.component';
+import { TipoPersonaComponent } from './tipo-persona/tipo-persona.component';
+import { TipoPersonasComponent } from './tipo-personas/tipo-personas.component';
+import { TiposPersonaComponent } from './tipos-persona/tipos-persona.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     ClientesComponent,
-    ClienteComponent
+    ClienteComponent,
+    EmpleadosComponent,
+    EmpleadoComponent,
+    ProveedoresComponent,
+    ProveedorComponent,
+    TipoPersonaComponent,
+    TipoPersonasComponent,
+    TiposPersonaComponent
   ],
   imports: [
     BrowserModule,

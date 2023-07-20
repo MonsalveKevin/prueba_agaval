@@ -1,0 +1,32 @@
+<h1>{{ title }}</h1>
+<div class="row">
+  <div class="col-md-12">
+    <a type="button" class="btn btn-primary btn--raised" href="/proveedor">Agregar proveedor</a>
+    <div *ngIf="!proveedores" class="alert alert-primary" role="alert">
+      No hay datos para mostrar.
+    </div>
+    <table class="table" *ngIf="proveedores">
+      <thead>
+        <tr>
+          <td>Id</td>
+          <td>Nombre</td>
+          <td>Dirección</td>
+          <td>Teléfono</td>
+          <td>Acciones</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of proveedores">
+          <td>{{ item.idProveedor }}</td>
+          <td>{{ item.nombre }}</td>
+          <td>{{ item.direccion }}</td>
+          <td>{{ item.telefono }}</td>
+          <td>
+            <button type="button" class="btn btn-primary btn--icon" (click)="editar(item.idProveedor)"><i class="fa fa-pencil"></i></button> |
+            <button class="btn btn-danger btn--icon" (click)="eliminar(item.idProveedor)"><i class="fa fa-trash"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

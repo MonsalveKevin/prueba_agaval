@@ -22,6 +22,12 @@ namespace webapi.Controllers
             return _empleado.Obtener();
         }
 
+        [HttpGet("{idEmpleado}")]
+        public Empleado ObetenerPorId(Guid idEmpleado)
+        {
+            return _empleado.ObtenerPorId(idEmpleado);
+        }
+
         [HttpPost]
         public IActionResult AgregarEmpleado([FromBody] Empleado empleado)
         {

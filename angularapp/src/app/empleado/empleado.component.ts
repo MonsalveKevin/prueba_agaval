@@ -3,19 +3,17 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Cliente } from '../../Interfaces/Cliente';
 
 @Component({
-  selector: 'app-cliente',
-  templateUrl: './cliente.component.html',
-  styleUrls: ['./cliente.component.css']
+  selector: 'app-empleado',
+  templateUrl: './empleado.component.html',
+  styleUrls: ['./empleado.component.css']
 })
-export class ClienteComponent implements OnInit {
-  public title = 'Crear Cliente';
+export class EmpleadoComponent implements OnInit {
+  public title = 'Crear Empleado';
   public cargando = false;
   public subido = false;
   public esEdicion = false;
-  public tiposPersona!: any[];
 
   public detalleForm!: FormGroup;
 
@@ -30,51 +28,39 @@ export class ClienteComponent implements OnInit {
   ngOnInit(): void {
     this.detalleForm = this.formBuilder.group({
       id: [''],
-      nombre: ['', [Validators.required]],
-      direccion: ['', [Validators.required]],
-      telefono: ['', [Validators.required]],
       identificacion: ['', [Validators.required]],
-      idTipoPersona: ['', [Validators.required]],
+      nombre: ['', [Validators.required]],
+      apellidos: ['', [Validators.required]],
+      telefono: ['', [Validators.required]],
+      direccion: ['', [Validators.required]],
     });
 
     this.f['id'].setValue(this.route.snapshot.paramMap.get('id') || '');
     if (this.f['id'].value) {
       this.esEdicion = true;
-      this.title = 'Editar Cliente';
+      this.title = 'Editar Empleado';
     }
 
-    this.llenarTiposPersona();
-    this.obtenerCliente();
+    this.obtenerEmpleado();
   }
 
   get f() {
     return this.detalleForm.controls;
   }
 
-  llenarTiposPersona() {
-    this.http.get<any>('/api/tipospersona').subscribe(
-      (result) => {
-        this.tiposPersona = result;
-      },
-      (error) => {
-        this.toastr.error(error, 'Error');
-      }
-    );
-  }
-
-  obtenerCliente() {
+  obtenerEmpleado() {
     if (!this.f['id'].value) {
       return;
     }
 
-    this.http.get<any>(`/api/clientes/${this.f['id'].value}`).subscribe(
+    this.http.get<any>(`/api/empleados/${this.f['id'].value}`).subscribe(
       (result) => {
         this.f['id'].disable();
-        this.f['nombre'].setValue(result.nombre);
-        this.f['direccion'].setValue(result.direccion);
         this.f['identificacion'].setValue(result.identificacion);
+        this.f['nombre'].setValue(result.nombre);
+        this.f['apellidos'].setValue(result.apellidos);
         this.f['telefono'].setValue(result.telefono);
-        this.f['idTipoPersona'].setValue(result.idTipoPersona);
+        this.f['direccion'].setValue(result.direccion);
       },
       (error) => {
         this.toastr.error(error, 'Error');
@@ -91,21 +77,21 @@ export class ClienteComponent implements OnInit {
 
     this.cargando = true;
 
-    let cliente = {
-      idCliente: null,
-      nombre: this.f['nombre'].value,
-      direccion: this.f['direccion'].value,
-      telefono: this.f['telefono'].value,
+    let empleado = {
+      idEmpleado: null,
       identificacion: this.f['identificacion'].value,
-      idTipoPersona: this.f['idTipoPersona'].value,
+      nombre: this.f['nombre'].value,
+      apellidos: this.f['apellidos'].value,
+      telefono: this.f['telefono'].value,
+      direccion: this.f['direccion'].value,
     };
 
     if (!this.esEdicion) {
-      this.http.post<any>('/api/clientes', cliente).subscribe(
+      this.http.post<any>('/api/empleados', empleado).subscribe(
         () => {
           this.toastr.success('Almacenado correctamente', 'Éxito');
           setTimeout(() => {
-            this.router.navigateByUrl('clientes');
+            this.router.navigateByUrl('empleados');
           }, 2000);
         },
         (error) => {
@@ -115,12 +101,12 @@ export class ClienteComponent implements OnInit {
         }
       );
     } else {
-      cliente.idCliente = this.f['id'].value,
-        this.http.put<any>('/api/clientes', cliente).subscribe(
+      empleado.idEmpleado = this.f['id'].value,
+        this.http.put<any>('/api/empleados', empleado).subscribe(
           () => {
             this.toastr.success('Modificado correctamente', 'Éxito');
             setTimeout(() => {
-              this.router.navigateByUrl('clientes');
+              this.router.navigateByUrl('empleados');
             }, 2000);
           },
           (error) => {

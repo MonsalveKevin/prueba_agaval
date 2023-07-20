@@ -31,5 +31,30 @@ namespace Datos
                 }
             }
         }
+
+        public TipoPersona ObtenerPorId(Guid idTipoPersona)
+        {
+            using (SqlConnection connection = new SqlConnection(Conexion.ConnectionString))
+            {
+                string query = "SELECT IdTipoPersona, Nombre FROM TipoPersona WHERE idTipoPersona = @IdTipoPersona";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdTipoPersona", idTipoPersona);
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        var nombre = reader.GetString(1);
+
+                        return new TipoPersona { IdTipoPersona = idTipoPersona, Nombre = nombre };
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
     }
 }

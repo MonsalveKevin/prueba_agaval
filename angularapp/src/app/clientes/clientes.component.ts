@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Cliente } from 'src/Interfaces/Cliente';
 
 @Component({
-  selector: 'app-clientes',
+  selector: 'app-cliente',
   templateUrl: './clientes.component.html',
   styleUrls: ['./clientes.component.css']
 })

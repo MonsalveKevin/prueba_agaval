@@ -4,14 +4,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Cliente } from '../../Interfaces/Cliente';
+import { Proveedor } from '../../Interfaces/Proveedor';
 
 @Component({
-  selector: 'app-cliente',
-  templateUrl: './cliente.component.html',
-  styleUrls: ['./cliente.component.css']
+  selector: 'app-proveedor',
+  templateUrl: './proveedor.component.html',
+  styleUrls: ['./proveedor.component.css']
 })
-export class ClienteComponent implements OnInit {
-  public title = 'Crear Cliente';
+export class ProveedorComponent implements OnInit {
+  public title = 'Crear Proveedor';
   public cargando = false;
   public subido = false;
   public esEdicion = false;
@@ -33,48 +34,32 @@ export class ClienteComponent implements OnInit {
       nombre: ['', [Validators.required]],
       direccion: ['', [Validators.required]],
       telefono: ['', [Validators.required]],
-      identificacion: ['', [Validators.required]],
-      idTipoPersona: ['', [Validators.required]],
     });
 
     this.f['id'].setValue(this.route.snapshot.paramMap.get('id') || '');
     if (this.f['id'].value) {
       this.esEdicion = true;
-      this.title = 'Editar Cliente';
+      this.title = 'Editar Proveedor';
     }
 
-    this.llenarTiposPersona();
-    this.obtenerCliente();
+    this.obtenerProveedor();
   }
 
   get f() {
     return this.detalleForm.controls;
   }
 
-  llenarTiposPersona() {
-    this.http.get<any>('/api/tipospersona').subscribe(
-      (result) => {
-        this.tiposPersona = result;
-      },
-      (error) => {
-        this.toastr.error(error, 'Error');
-      }
-    );
-  }
-
-  obtenerCliente() {
+  obtenerProveedor() {
     if (!this.f['id'].value) {
       return;
     }
 
-    this.http.get<any>(`/api/clientes/${this.f['id'].value}`).subscribe(
+    this.http.get<any>(`/api/proveedores/${this.f['id'].value}`).subscribe(
       (result) => {
         this.f['id'].disable();
         this.f['nombre'].setValue(result.nombre);
         this.f['direccion'].setValue(result.direccion);
-        this.f['identificacion'].setValue(result.identificacion);
         this.f['telefono'].setValue(result.telefono);
-        this.f['idTipoPersona'].setValue(result.idTipoPersona);
       },
       (error) => {
         this.toastr.error(error, 'Error');
@@ -91,21 +76,19 @@ export class ClienteComponent implements OnInit {
 
     this.cargando = true;
 
-    let cliente = {
-      idCliente: null,
+    let proveedor = {
+      idProveedor: null,
       nombre: this.f['nombre'].value,
       direccion: this.f['direccion'].value,
       telefono: this.f['telefono'].value,
-      identificacion: this.f['identificacion'].value,
-      idTipoPersona: this.f['idTipoPersona'].value,
     };
 
     if (!this.esEdicion) {
-      this.http.post<any>('/api/clientes', cliente).subscribe(
+      this.http.post<any>('/api/proveedores', proveedor).subscribe(
         () => {
           this.toastr.success('Almacenado correctamente', 'Éxito');
           setTimeout(() => {
-            this.router.navigateByUrl('clientes');
+            this.router.navigateByUrl('proveedores');
           }, 2000);
         },
         (error) => {
@@ -115,12 +98,12 @@ export class ClienteComponent implements OnInit {
         }
       );
     } else {
-      cliente.idCliente = this.f['id'].value,
-        this.http.put<any>('/api/clientes', cliente).subscribe(
+      proveedor.idProveedor = this.f['id'].value,
+        this.http.put<any>('/api/proveedores', proveedor).subscribe(
           () => {
             this.toastr.success('Modificado correctamente', 'Éxito');
             setTimeout(() => {
-              this.router.navigateByUrl('clientes');
+              this.router.navigateByUrl('proveedores');
             }, 2000);
           },
           (error) => {

@@ -35,6 +35,33 @@ namespace Datos
             }
         }
 
+        public Proveedor ObtenerPorId(Guid idProveedor)
+        {
+            using (SqlConnection connection = new SqlConnection(Conexion.ConnectionString))
+            {
+                string query = "SELECT IdProveedor, Nombre, Direccion, Telefono FROM Proveedor WHERE IdProveedor = @IdProveedor";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdProveedor", idProveedor);
+                connection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        var nombre = reader.GetString(1);
+                        var direccion = reader.GetString(2);
+                        var telefono = reader.GetString(3);
+
+                        return new Proveedor { IdProveedor = idProveedor, Nombre = nombre, Direccion = direccion, Telefono = telefono};
+                    }
+                    else
+                    {
+                        return null;
+                    }
+                }
+            }
+        }
+
         public void AgregarProveedor(Proveedor proveedor)
         {
             proveedor.IdProveedor = Guid.NewGuid();

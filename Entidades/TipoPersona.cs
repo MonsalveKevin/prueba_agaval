@@ -2,7 +2,7 @@
 {
     public class TipoPersona
     {
-        public Guid IdTipoPersona { get; set; }
-        public string Nombre { get; set; }
+        public Guid? IdTipoPersona { get; set; }
+        public string? Nombre { get; set; }
     }
 }

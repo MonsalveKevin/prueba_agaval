@@ -27,7 +27,7 @@ namespace Datos
                         var identificacion = reader.GetString(4);
                         var tipoPersona = reader.GetString(5);
                         var idTipoPersona = reader.GetGuid(6);
-                        
+
 
                         datosCliente.Add(new Cliente { IdCliente = idCliente, Nombre = nombre, Direccion = direccion, Telefono = telefono, Identificacion = identificacion, TipoPersona = tipoPersona, IdTipoPersona = idTipoPersona });
 
@@ -78,11 +78,11 @@ namespace Datos
                 string query = "INSERT INTO Cliente (IdCliente, Nombre, Direccion, Telefono, Identificacion, IdTipoPersona) VALUES (@IdCliente, @Nombre, @Direccion, @Telefono, @Identificacion, @IdTipoPersona)";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@IdCliente", cliente.IdCliente);
-                command.Parameters.AddWithValue("@IdTipoPersona", cliente.IdTipoPersona);
                 command.Parameters.AddWithValue("@Nombre", cliente.Nombre);
                 command.Parameters.AddWithValue("@Direccion", cliente.Direccion);
                 command.Parameters.AddWithValue("@Telefono", cliente.Telefono);
                 command.Parameters.AddWithValue("@Identificacion", cliente.Identificacion);
+                command.Parameters.AddWithValue("@IdTipoPersona", cliente.IdTipoPersona);
                 connection.Open();
 
                 //Verificar si una fila tuvo cambios

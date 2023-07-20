@@ -3,6 +3,7 @@
 <div class="card">
   <div class="card-body">
     <form [formGroup]="detalleForm" (ngSubmit)="onSubmit()">
+
       <!--Nombre-->
       <div class="form-group">
         <label>Nombre</label>
@@ -35,7 +36,7 @@
 
       <!--Telefono-->
       <div class="form-group">
-        <label>Télefono</label>
+        <label>Teléfono</label>
         <input type="text"
                formControlName="telefono"
                class="form-control"
@@ -43,41 +44,7 @@
         <i class="form-group__bar"></i>
         <div *ngIf="subido && f['telefono'].errors" class="invalid-tooltip">
           <div *ngIf="f['telefono'].errors['required']">
-            Télefono requerido
-          </div>
-        </div>
-      </div>
-
-      <!--Identificacion-->
-      <div class="form-group">
-        <label>Identificación</label>
-        <input type="text"
-               formControlName="identificacion"
-               class="form-control"
-               [ngClass]="{ 'is-invalid': subido && f['identificacion'].errors }" />
-        <i class="form-group__bar"></i>
-        <div *ngIf="subido && f['identificacion'].errors" class="invalid-tooltip">
-          <div *ngIf="f['identificacion'].errors['required']">
-            Identificación requerida
-          </div>
-        </div>
-      </div>
-
-      <!--Tipo Persona-->
-      <div class="form-group">
-        <label>Tipo Persona</label>
-        <ng-select formControlName="idTipoPersona"
-                   [items]="tiposPersona"
-                   bindLabel="nombre"
-                   bindValue="idTipoPersona"
-                   class="form-control"
-                   [ngClass]="{ 'is-invalid': subido && f['idTipoPersona'].errors }">
-        </ng-select>
-        <i class="form-group__bar"></i>
-        <div *ngIf="subido && f['idTipoPersona'].errors"
-             class="invalid-tooltip">
-          <div *ngIf="f['idTipoPersona'].errors['required']">
-            Tipo Persona requerido
+            Teléfono requerido
           </div>
         </div>
       </div>
@@ -86,7 +53,7 @@
       <div class="botones-form">
         <button type="button"
                 class="btn btn-secondary btn--raised"
-                [routerLink]="['/clientes']">
+                [routerLink]="['/proveedores']">
           Volver
         </button>
         <button [disabled]="cargando" class="btn btn-primary btn--raised">

@@ -22,6 +22,12 @@ namespace webapi.Controllers
             return _proveedor.Obtener();
         }
 
+        [HttpGet("{idProveedor}")]
+        public Proveedor ObetenerPorId(Guid idProveedor)
+        {
+            return _proveedor.ObtenerPorId(idProveedor);
+        }
+
         [HttpPost]
         public IActionResult AgregarProveedor([FromBody] Proveedor proveedor)
         {

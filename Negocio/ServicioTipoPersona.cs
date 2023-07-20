@@ -25,5 +25,18 @@ namespace Negocio
                 throw;
             }
         }
+
+        public TipoPersona ObtenerPorId(Guid idTipoPersona)
+        {
+            try
+            {
+                return _datosTipoPersona.ObtenerPorId(idTipoPersona);
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex);
+                throw;
+            }
+        }
     }
 }

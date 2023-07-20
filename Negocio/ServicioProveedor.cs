@@ -26,6 +26,19 @@ namespace Negocio
                 throw;
             }
         }
+
+        public Proveedor ObtenerPorId(Guid idProveedor)
+        {
+            try
+            {
+                return _proveedor.ObtenerPorId(idProveedor);
+            }
+            catch (Exception ex)
+            {
+                Debug.Write(ex);
+                throw;
+            }
+        }
         public void AgregarProveedor(Proveedor proveedor)
         {
             try
