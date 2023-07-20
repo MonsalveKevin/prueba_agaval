@@ -16,7 +16,6 @@ export class ProveedorComponent implements OnInit {
   public cargando = false;
   public subido = false;
   public esEdicion = false;
-  public tiposPersona!: any[];
 
   public detalleForm!: FormGroup;
 

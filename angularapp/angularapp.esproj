@@ -13,4 +13,9 @@
   <ItemGroup>
     <Folder Include="src\Interfaces\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\monsa\OneDrive\Escritorio\app.module.ts">
+      <Link>app.module.ts</Link>
+    </None>
+  </ItemGroup>
 </Project>

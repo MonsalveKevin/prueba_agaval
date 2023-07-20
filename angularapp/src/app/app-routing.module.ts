@@ -8,6 +8,8 @@ import { EmpleadoComponent } from './empleado/empleado.component';
 import { EmpleadosComponent } from './empleados/empleados.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { ProveedorComponent } from './proveedor/proveedor.component';
+import { TiposPersonaComponent } from './tiposPersona/tiposPersona.component';
+import { TipoPersonaComponent } from './tipoPersona/tipoPersona.component';
 
 
 const routes: Routes = [
@@ -20,6 +22,9 @@ const routes: Routes = [
   { path: 'proveedores', component: ProveedoresComponent },
   { path: 'proveedor', component: ProveedorComponent },
   { path: 'proveedor/:id', component: ProveedorComponent },
+  { path: 'tiposPersona', component: TiposPersonaComponent },
+  { path: 'tipoPersona', component: TipoPersonaComponent },
+  { path: 'tipoPersona/:id', component: TipoPersonaComponent },
   { path: '*', component: AppComponent }
 ];
 

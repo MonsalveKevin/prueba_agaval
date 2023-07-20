@@ -14,9 +14,8 @@ import { EmpleadosComponent } from './empleados/empleados.component';
 import { EmpleadoComponent } from './empleado/empleado.component';
 import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { ProveedorComponent } from './proveedor/proveedor.component';
-import { TipoPersonaComponent } from './tipo-persona/tipo-persona.component';
-import { TipoPersonasComponent } from './tipo-personas/tipo-personas.component';
-import { TiposPersonaComponent } from './tipos-persona/tipos-persona.component';
+import { TiposPersonaComponent } from './tiposPersona/tiposPersona.component';
+import { TipoPersonaComponent } from './tipoPersona/tipoPersona.component';
 
 
 @NgModule({
@@ -28,9 +27,8 @@ import { TiposPersonaComponent } from './tipos-persona/tipos-persona.component';
     EmpleadoComponent,
     ProveedoresComponent,
     ProveedorComponent,
-    TipoPersonaComponent,
-    TipoPersonasComponent,
-    TiposPersonaComponent
+    TiposPersonaComponent,
+    TipoPersonaComponent
   ],
   imports: [
     BrowserModule,

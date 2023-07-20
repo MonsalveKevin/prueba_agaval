@@ -1,1 +1,5 @@
-console.log("Hello World!")
+export interface TipoPersona {
+
+  idTipoPersona: string;
+  nombre: string;
+}
