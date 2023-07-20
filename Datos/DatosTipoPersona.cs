@@ -8,7 +8,7 @@ namespace Datos
     {
         public List<TipoPersona> Obtener()
         {
-            var tipoPersonas = new List<TipoPersona>();
+            var datosTipoPersona = new List<TipoPersona>();
 
             using (SqlConnection connection = new SqlConnection(Conexion.ConnectionString))
             {
@@ -20,15 +20,15 @@ namespace Datos
                 {
                     while (reader.Read())
                     {
-
                         var idTipoPersona = reader.GetGuid(0);
                         var nombre = reader.GetString(1);
 
-                        tipoPersonas.Add(new TipoPersona { IdTipoPersona = idTipoPersona, Nombre = nombre });
+                        datosTipoPersona.Add(new TipoPersona { IdTipoPersona = idTipoPersona, Nombre = nombre});
 
                     }
-                    return tipoPersonas;
+                    return datosTipoPersona;
                 }
+
             }
         }
 
@@ -36,7 +36,7 @@ namespace Datos
         {
             using (SqlConnection connection = new SqlConnection(Conexion.ConnectionString))
             {
-                string query = "SELECT IdTipoPersona, Nombre FROM TipoPersona WHERE idTipoPersona = @IdTipoPersona";
+                string query = "SELECT IdTipoPersona, Nombre FROM TipoPersona WHERE IdTipoPersona = @IdTipoPersona";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@IdTipoPersona", idTipoPersona);
                 connection.Open();
@@ -54,6 +54,52 @@ namespace Datos
                         return null;
                     }
                 }
+            }
+        }
+
+        public void AgregarTipoPersona(TipoPersona tipoPersona)
+        {
+            tipoPersona.IdTipoPersona = Guid.NewGuid();
+
+            using (SqlConnection connection = new SqlConnection(Conexion.ConnectionString))
+            {
+                string query = "INSERT INTO TipoPersona (IdTipoPersona, Nombre) VALUES (@IdTipoPersona, @Nombre)";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdTipoPersona", tipoPersona.IdTipoPersona);
+                command.Parameters.AddWithValue("@Nombre", tipoPersona.Nombre);
+                connection.Open();
+
+                //Verificar si una fila tuvo cambios
+                int rowsAffected = command.ExecuteNonQuery();
+            }
+        }
+
+        public void EditarTipoPersona(TipoPersona tipoPersona)
+        {
+            using (SqlConnection connection = new SqlConnection(Conexion.ConnectionString))
+            {
+                string query = "UPDATE TipoCliente SET Nombre = @Nombre WHERE IdTipoPersona = @IdTipoPersona";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdTipoPersona", tipoPersona.IdTipoPersona);
+                command.Parameters.AddWithValue("@Nombre", tipoPersona.Nombre);
+                connection.Open();
+
+                //Verificar si una fila tuvo cambios
+                int rowsAffected = command.ExecuteNonQuery();
+            }
+        }
+
+        public void EliminarTipoPersona(Guid idTipoPersona)
+        {
+            using (SqlConnection connection = new SqlConnection(Conexion.ConnectionString))
+            {
+                string query = "DELETE FROM TipoPersona WHERE IdTipoPersona = @IdTipoPersona";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@IdTipoPersona", idTipoPersona);
+                connection.Open();
+
+                //Verificar si una fila tuvo cambios
+                int rowsAffected = command.ExecuteNonQuery();
             }
         }
     }
